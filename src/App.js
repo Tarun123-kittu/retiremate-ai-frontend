@@ -4,6 +4,10 @@ import { CssBaseline } from '@mui/material';
 import ChatContainer from './components/Chat/ChatContainer';
 import Home from './page/Home';
 import './App.css'
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
+
 function App() {
   return (
     <Router>
@@ -17,3 +21,4 @@ function App() {
 }
 
 export default App;
+
