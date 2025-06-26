@@ -28,7 +28,7 @@ const ChatContainer = () => {
       setMessages(prev => [...prev, { text: '', isUser: false, isStreaming: true }]);
 
       // Prepare for streaming response
-      const response = await fetch('http://localhost:8000/api/chat/send', {
+      const response = await fetch('https://test-api.retiremate.com/api/chat/send', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
