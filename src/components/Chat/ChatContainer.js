@@ -4,7 +4,6 @@ import ChatMessage from './ChatMessage';
 import ChatInput from './ChatInput';
 import axios from 'axios';
 import { Logo } from '../../svgFiles/Logo';
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { useNavigate } from 'react-router-dom';
 const ChatContainer = () => {
   const navigate = useNavigate();
