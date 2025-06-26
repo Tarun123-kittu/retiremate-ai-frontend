@@ -3,12 +3,16 @@ import { Box, Paper, Typography, CircularProgress } from '@mui/material';
 import ChatMessage from './ChatMessage';
 import ChatInput from './ChatInput';
 import axios from 'axios';
-
+import { Logo } from '../../svgFiles/Logo';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import { useNavigate } from 'react-router-dom';
 const ChatContainer = () => {
+  const navigate = useNavigate();
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
   const userId = 'user123'; // In a real app, this would come from authentication
+
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -28,7 +32,7 @@ const ChatContainer = () => {
       setMessages(prev => [...prev, { text: '', isUser: false, isStreaming: true }]);
 
       // Prepare for streaming response
-      const response = await fetch('http://localhost:8000/api/chat/send', {
+      const response = await fetch('https://test-api.retiremate.com/api/chat/send', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -100,58 +104,68 @@ const ChatContainer = () => {
   };
 
   return (
-    <Paper
-      elevation={3}
-      sx={{
-        height: '80vh',
-        maxWidth: '800px',
-        margin: '2rem auto',
-        display: 'flex',
-        flexDirection: 'column',
-      }}
-    >
-      <Box
+  <Box display="flex" justifyContent="center" sx={{height:"100vh",paddingLeft:"10px",paddingRight:"10px"}} >
+      <Paper
+        elevation={0}
         sx={{
-          p: 2,
-          backgroundColor: '#1976d2',
-          color: 'white',
+          height: '98vh',
+          maxWidth: '572px',
+          margin: 'auto',
+          display: 'flex',
+          flexDirection: 'column',
+          border: "2px solid green",
+          width: "100%",
+          borderRadius:"10px"
         }}
       >
-        <Typography variant="h6">Chat with Assistant</Typography>
-      </Box>
+        <Box
+         elevation={3}
+          sx={{
+            p: 2,
+            backgroundColor: '#fff',
+            color: 'white',
+            borderTopLeftRadius:"8px",
+            borderTopRightRadius:"8px",
+          }}
+        >
+           <Logo  className="logoSvg" onClick={()=> navigate('/')} sx={{color:"#000"}}/>
+        </Box>
 
-      <Box
-        sx={{
-          flex: 1,
-          overflowY: 'auto',
-          p: 2,
-          backgroundColor: '#fafafa',
-        }}
-      >
-        {messages.map((message, index) => (
-          <ChatMessage
-            key={index}
-            message={message.text}
-            isUser={message.isUser}
-            isStreaming={message.isStreaming}
-          />
-        ))}
-        {isLoading && !messages.find(m => m.isStreaming) && (
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              my: 2,
-            }}
-          >
-            <CircularProgress size={20} />
-          </Box>
-        )}
-        <div ref={messagesEndRef} />
-      </Box>
+        <Box
+          sx={{
+            flex: 1,
+            overflowY: 'auto',
+            p: 2,
+            backgroundColor: '#fafafa',
+          }}
+        >
+          {messages.map((message, index) => (
+            <ChatMessage
+              key={index}
+              message={message.text}
+              isUser={message.isUser}
+              isStreaming={message.isStreaming}
+            />
+          ))}
+          {isLoading && !messages.find(m => m.isStreaming) && (
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                my: 2,
+              }}
+            >
+              <CircularProgress size={20} />
+            </Box>
+          )}
+          <div ref={messagesEndRef} />
+        </Box>
 
-      <ChatInput onSendMessage={handleSendMessage} disabled={isLoading} />
-    </Paper>
+
+        <ChatInput onSendMessage={handleSendMessage} disabled={isLoading} />
+      </Paper>
+    </Box>
+
   );
 };
 

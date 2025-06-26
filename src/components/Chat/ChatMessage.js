@@ -1,7 +1,8 @@
 import React from 'react';
 import { Paper, Typography, Box } from '@mui/material';
-
+import BlinkingDots from './BlinkingDots';
 const ChatMessage = ({ message, isUser, isStreaming }) => {
+  
   return (
     <Box
       sx={{
@@ -11,47 +12,34 @@ const ChatMessage = ({ message, isUser, isStreaming }) => {
       }}
     >
       <Paper
-        elevation={1}
+        elevation={0} // Changed from 1 to 0 to remove shadow
         sx={{
-          p: 2,
-          maxWidth: '70%',
-          backgroundColor: isUser ? '#e3f2fd' : '#f5f5f5',
-          borderRadius: isUser ? '20px 20px 0 20px' : '20px 20px 20px 0',
+          px: 2,
+          py: 1,
+          fontSize: "14px",
+          maxWidth: '320px',
+          backgroundColor: isUser ? '#7bf1a8' : '#fff',
+          borderRadius: isUser ? '12px 12px 0 12px' : '0px 12px 12px 12px',
+          borderWidth: isUser ? '' : "2px",
+          borderColor: isUser ? '' : "#5cc37e",
+          borderStyle: isUser ? '' : "solid",
           opacity: isStreaming ? 0.8 : 1,
           transition: 'opacity 0.3s ease',
           position: 'relative',
-          '&::after': isStreaming ? {
-            content: '""',
-            position: 'absolute',
-            bottom: '8px',
-            left: '8px',
-            width: '8px',
-            height: '8px',
-            backgroundColor: '#1976d2',
-            borderRadius: '50%',
-            animation: 'pulse 1s infinite'
-          } : {},
-          '@keyframes pulse': {
-            '0%': {
-              transform: 'scale(0.8)',
-              opacity: 0.5,
-            },
-            '100%': {
-              transform: 'scale(1.2)',
-              opacity: 0,
-            },
-          },
+       
         }}
       >
-        <Typography 
-          variant="body1" 
-          component="div" 
-          sx={{ 
+        <Typography
+          variant="body1"
+          component="div"
+          sx={{
             whiteSpace: 'pre-wrap',
             minHeight: '20px', // Ensures empty messages have height
+            fontSize:'14px',
+            fontFamily:"Rubik"
           }}
         >
-          {message}
+          {message} {isStreaming && <BlinkingDots/>}
         </Typography>
       </Paper>
     </Box>

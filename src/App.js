@@ -1,15 +1,18 @@
 import React from 'react';
-import { CssBaseline, Container } from '@mui/material';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { CssBaseline } from '@mui/material';
 import ChatContainer from './components/Chat/ChatContainer';
-
+import Home from './page/Home';
+import './App.css'
 function App() {
   return (
-    <>
-      <CssBaseline />
-      <Container>
-        <ChatContainer />
-      </Container>
-    </>
+    <Router>
+      <CssBaseline />    
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/chat" element={<ChatContainer />} />
+        </Routes>
+    </Router>
   );
 }
 
