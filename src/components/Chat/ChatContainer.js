@@ -11,8 +11,10 @@ const ChatContainer = () => {
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
-  const userId = 'user123'; // In a real app, this would come from authentication
+  // const userId = 'user123'; // In a real app, this would come from authentication
 
+   const [userId] = useState(() => `user_${Math.floor(Math.random() * 1000000)}`);
+console.log(userId,"userId--->");
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });

@@ -9,10 +9,11 @@ import {
     Stack,
     Box,
     Link,
-    Grid
+    Grid,
+    IconButton
 
 } from '@mui/material';
-
+import SendIcon from '@mui/icons-material/Send';
 import { Logo } from '../svgFiles/Logo';
 import { TypeAnimation } from 'react-type-animation';
 import phoneImage1 from '../images/xl_media_image1.png'
@@ -81,33 +82,51 @@ function Home() {
                 </Typography>
 
                 <Box sx={{ position: "relative", maxWidth: "550px", margin: "auto" }}>
-                    <TextField
-                        onChange={(e) => setMessage(e.target.value)}
-                        variant="outlined"
-                        fullWidth
-                        placeholder="Type your retirement question…"
-                        size="small"
-                        sx={{
-                            my: 2,
-                            '& .MuiOutlinedInput-root': {
-                                fontSize: '14px',
-                                paddingRight: 5,
-                                '& fieldset': {
-                                    borderColor: '#d1d5dc',
-                                    borderWidth: 2,
-                                    paddingRight: 30
-                                },
-                                '&:hover fieldset': {
-                                    borderColor: '#4CAF50', // hover border color (optional)
-                                },
-                                '&.Mui-focused fieldset': {
-                                    borderColor: '#4CAF50', // ✅ green on focus
-                                },
-                            },
-                        }}
-                    />
+                    <form onSubmit={(e) => {e.preventDefault()
+                         navigate('/chat', { state: { title: messgae } }) }}>
 
-                    <img onClick={() => { navigate('/chat', { state: { title: messgae } }) }} className='send_image' src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%3e%3cpath%20fill='none'%20stroke='%230e6634'%20stroke-linecap='round'%20stroke-linejoin='round'%20stroke-width='2'%20d='M14.536%2021.686a.5.5%200%200%200%20.937-.024l6.5-19a.496.496%200%200%200-.635-.635l-19%206.5a.5.5%200%200%200-.024.937l7.93%203.18a2%202%200%200%201%201.112%201.11zm7.318-19.539l-10.94%2010.939'/%3e%3c/svg%3e" alt="" />
+                        <TextField
+                            onChange={(e) => setMessage(e.target.value)}
+                            variant="outlined"
+                            fullWidth
+                            placeholder="Type your retirement question…"
+                            size="small"
+                            sx={{
+                                my: 2,
+                                '& .MuiOutlinedInput-root': {
+                                    fontSize: '14px',
+                                    paddingRight: 5,
+                                    '& fieldset': {
+                                        borderColor: '#d1d5dc',
+                                        borderWidth: 2,
+                                        paddingRight: 30
+                                    },
+                                    '&:hover fieldset': {
+                                        borderColor: '#4CAF50', // hover border color (optional)
+                                    },
+                                    '&.Mui-focused fieldset': {
+                                        borderColor: '#4CAF50', // ✅ green on focus
+                                    },
+                                },
+                            }}
+                        />
+                        <IconButton
+                            className="send_image"
+                            type="submit"
+                            color="primary"
+                            sx={{
+                                '&:hover': {
+                                    backgroundColor: 'transparent',
+                                },
+                            }}
+                        >
+                            <SendIcon sx={{
+                                color: '#5cc37e'
+
+                            }} />
+                        </IconButton>
+
+                    </form>
 
                 </Box>
 
@@ -133,8 +152,9 @@ function Home() {
                         'How much money should I save per month?',
                     ].map((question, idx) => (
                         <Button
-                        onClick={() => { 
-                            navigate('/chat', { state: { title: question } }) }} 
+                            onClick={() => {
+                                navigate('/chat', { state: { title: question } })
+                            }}
                             key={idx}
                             variant="outlined"
                             sx={{

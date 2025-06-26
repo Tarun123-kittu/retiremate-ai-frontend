@@ -63,9 +63,9 @@ header.header_wrapper {
   cursor: pointer;
 }
 .send_image {
-  position: absolute;
-  top: 21px;
-  right: 10px;
+  position: absolute !important;
+  top: 15px;
+  right: 2px;
 }
 .save_text {
   padding: 60px 0px;
